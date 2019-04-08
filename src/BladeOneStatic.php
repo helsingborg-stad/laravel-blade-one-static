@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelBladeOneStatic;
+namespace LaravelBladeOneStatic\BladeOneStatic;
 
 Use eftec\bladeone\BladeOne as Blade;
 
@@ -16,11 +16,12 @@ class BladeOneStatic
     static $bladeOne;
 
     /**
-     * @return Blade
+     * Init BladeOne
+     * @return bool|Blade
      */
     public static function init()
     {
-        if (!class_exist(\BladeComponentLibrary\Register)) {
+        if (!class_exists('\BladeComponentLibrary\Register')) {
             return false;
         }
 
@@ -33,17 +34,19 @@ class BladeOneStatic
     }
 
 
-    /** Init Blade Engine
-     * @return string
+    /**
+     * Run Blade Engine
+     * @param $params
+     * @return bool
      * @throws \Exception
      */
     public static function initBladeOne($params)
     {
-        if (!class_exists(Blade::class)) {
+        if (!class_exists('eftec\bladeone\BladeOne')) {
             return false;
         }
 
-        if (class_exist(\BladeComponentLibrary\Register)) {
+        if (class_exists('\BladeComponentLibrary\Register')) {
 
             return self::$bladeOne->run(
                 (string)$params['utilityViewName'],
@@ -54,8 +57,4 @@ class BladeOneStatic
             throw new \Exception("Error running Blade one");
         }
     }
-
-
 }
-
-
