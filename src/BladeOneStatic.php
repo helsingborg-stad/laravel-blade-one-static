@@ -20,6 +20,10 @@ class BladeOneStatic
      */
     public static function init()
     {
+        if (!class_exist(\BladeComponentLibrary\Register)) {
+            return false;
+        }
+        
         self::$bladeOne = new Blade(
             (array)\BladeComponentLibrary\Register::$viewPaths,
             (string)\BladeComponentLibrary\Register::$cachePath
