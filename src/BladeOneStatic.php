@@ -49,7 +49,7 @@ class BladeOneStatic
         $views = __DIR__ . "/../../views/";
         $cache = __DIR__ . "/../../cache/";
 
-        $blade = new Blade($views, $cache, BladeOne::MODE_AUTO);
+        $blade = new Blade($views, $cache, Blade::MODE_AUTO);
         echo $blade->run($params['template'], $params['data']);
     }
 
