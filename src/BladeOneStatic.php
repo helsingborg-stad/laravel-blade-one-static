@@ -52,14 +52,13 @@ class BladeOneStatic
         return self::$bladeOne->run($params['template'],$params['data']);
     }
 
-
     /**
      * Run Blade Engine
      * @param $params
      * @return bool
      * @throws \Exception
      */
-    public static function initBladeOne($params)
+    public static function runBladeOne($params)
     {
         if (!class_exists('eftec\bladeone\BladeOne')) {
             return false;
