@@ -33,29 +33,10 @@ class BladeOneStatic
         return self::$bladeOne;
     }
 
-    /**
-     * @param $params
-     * @return string
-     * @throws \Exception
-     */
-    public static function loadPageTemplate($params)
-    {
-        if (!class_exists('eftec\bladeone\BladeOne')) {
-            throw new \Exception("Error running Blade one");
-        }
-
-        self::$bladeOne = new Blade(
-            __DIR__ . '/../../../../views/',
-            __DIR__ . '/../../../../cache/'
-        );
-
-        return self::$bladeOne->run($params['template'],$params['data']);
-    }
 
     /**
-     * Run Blade Engine
      * @param $params
-     * @return bool
+     * @return bool|string
      * @throws \Exception
      */
     public static function runBladeOne($params)
@@ -65,10 +46,25 @@ class BladeOneStatic
         }
 
         if (class_exists('\BladeComponentLibrary\Register')) {
-            return self::$bladeOne->run(
-                (string)$params['utilityViewName'],
-                (array)$params['utilityArgsControlerData']
-            );
+
+            switch($params['path']){
+                case "component":
+
+                    return self::$bladeOne->run(
+                        (string)$params['utilityViewName'],
+                        (array)$params['utilityArgsControlerData']
+                    );
+                    break;
+                case "page":
+
+                    self::$bladeOne = new Blade(
+                        __DIR__ . '/../../../../views/',
+                        __DIR__ . '/../../../../cache/'
+                    );
+                    return self::$bladeOne->run($params['template'],$params['data']);
+                    break;
+            }
+
 
         } else {
             throw new \Exception("Error running Blade one");
