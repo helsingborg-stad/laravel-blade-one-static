@@ -50,6 +50,10 @@ class BladeOneStatic
             switch($params['path']){
                 case "component":
 
+                    if (!self::$bladeOne) {
+                        self::$bladeOne = self::init();
+                    }
+
                     return self::$bladeOne->run(
                         (string)$params['utilityViewName'],
                         (array)$params['utilityArgsControlerData']
