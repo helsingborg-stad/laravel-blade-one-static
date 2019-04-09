@@ -43,11 +43,8 @@ class BladeOneStatic
         if (!class_exists('eftec\bladeone\BladeOne')) {
             throw new \Exception("Error running Blade one");
         }
-
-        $views = __DIR__ . "/../../views/";
-        $cache = __DIR__ . "/../../cache/";
-
-        $blade = new Blade($views, $cache, Blade::MODE_AUTO);
+        
+        $blade = new Blade(__DIR__ . "/../../views/", __DIR__ . "/../../cache/", Blade::MODE_AUTO);
         return $blade->run($params['template'], $params['data']);
     }
 
