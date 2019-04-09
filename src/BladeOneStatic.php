@@ -41,8 +41,6 @@ class BladeOneStatic
     public static function loadPageTemplate($params)
     {
         if (!class_exists('eftec\bladeone\BladeOne')) {
-            return false;
-        } else {
             throw new \Exception("Error running Blade one");
         }
 
@@ -50,7 +48,7 @@ class BladeOneStatic
         $cache = __DIR__ . "/../../cache/";
 
         $blade = new Blade($views, $cache, Blade::MODE_AUTO);
-        echo $blade->run($params['template'], $params['data']);
+        return $blade->run($params['template'], $params['data']);
     }
 
 
