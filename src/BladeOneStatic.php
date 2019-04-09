@@ -14,6 +14,8 @@ class BladeOneStatic
      * @var
      */
     static $bladeOne;
+    public static $cachePath = "";
+    public static $viewPaths = [];
 
     /**
      * Init BladeOne
@@ -26,8 +28,8 @@ class BladeOneStatic
         }
 
         self::$bladeOne = new Blade(
-            (array)\BladeComponentLibrary\Register::$viewPaths,
-            (string)\BladeComponentLibrary\Register::$cachePath
+            (array)self::$viewPaths,
+            (string)self::$cachePath
         );
 
         return self::$bladeOne;
@@ -45,33 +47,68 @@ class BladeOneStatic
             return false;
         }
 
-        if (class_exists('\BladeComponentLibrary\Register')) {
+        switch ($params['path']) {
 
-            switch($params['path']){
-                case "component":
+            case "component":
 
-                    if (!self::$bladeOne) {
-                        self::$bladeOne = self::init();
-                    }
+                if (!self::$bladeOne) {
+                    self::$bladeOne = self::init();
+                }
 
-                    return self::$bladeOne->run(
-                        (string)$params['utilityViewName'],
-                        (array)$params['utilityArgsControlerData']
-                    );
-                    break;
-                case "page":
+                return self::$bladeOne->run(
+                    (string)$params['utilityViewName'],
+                    (array)$params['utilityArgsControlerData']
+                );
+                break;
 
-                    self::$bladeOne = new Blade(
-                        __DIR__ . '/../../../../views/',
-                        __DIR__ . '/../../../../cache/'
-                    );
-                    return self::$bladeOne->run($params['template'],$params['data']);
-                    break;
-            }
+            case "page":
 
+                self::$bladeOne = new Blade(
+                    self::addViewPath(__DIR__ . '/../../../../views/'),
+                    self::setCachePath(__DIR__ . '/../../../../cache/')
+                //self::$bladeOne = self::init()
+                );
 
-        } else {
-            throw new \Exception("Error running Blade one");
+                return self::$bladeOne->run($params['template'], $params['data']);
+                break;
         }
     }
+
+    /**
+     * Updates the cache path
+     * @param $path
+     * @return string The new cache path
+     */
+    public static function setCachePath($path): string
+    {
+        return self::$cachePath = $path;
+    }
+
+    /**
+     * Appends the view path object
+     * @param $path
+     * @param bool $prepend
+     * @return array The updated object with view paths
+     * @throws \Exception
+     */
+    public static function addViewPath($path, $prepend = true): array
+    {
+        //Sanitize path
+        $path = rtrim($path, "/");
+
+        //Push to location array
+        if ($prepend === true) {
+            if (array_unshift(self::$viewPaths, $path)) {
+                return self::$viewPaths;
+            }
+        } else {
+            if (array_push(self::$viewPaths, $path)) {
+                return self::$viewPaths;
+            }
+        }
+
+        //Error if something went wrong
+        throw new \Exception("Error appending view path: " . $path);
+    }
+
 }
