@@ -13,9 +13,9 @@ class BladeOneStatic
     /**
      * @var
      */
-    private static $bladeOne;
-    private static $cachePath = "";
-    private static $viewPaths = [];
+    public static $bladeOne;
+    public static $cachePath = "";
+    public static $viewPaths = [];
 
     /**
      * Init BladeOne
