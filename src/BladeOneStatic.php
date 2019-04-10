@@ -5,24 +5,10 @@ namespace LaravelBladeOneStatic\BladeOneStatic;
 Use eftec\bladeone\BladeOne as Blade;
 
 /**
- * Interface BladeOneStatic
- * @package LaravelBladeOneStatic\BladeOneStatic
- */
-interface BladeOneStatic
-{
-    public static function init();
-    public static function runBladeOne($params): array;
-    public static function setCachePath($path, $prepend = true): string;
-    public static function addViewPath($path, $prepend = true): array;
-
-}
-
-
-/**
  * Class BladeOneStatic
  * @package LaravelBladeOneStatic
  */
-class BladeOneStatics implements BladeOneStatic
+class BladeOneStatic
 {
     /**
      * @var
@@ -91,9 +77,9 @@ class BladeOneStatics implements BladeOneStatic
     /**
      * Updates the cache path
      * @param $path
-     * @return string The new cache path
+     * @return string
      */
-    public static function setCachePath($path, $prepend = true): string
+    public static function setCachePath($path): string
     {
         return self::$cachePath = $path;
     }
