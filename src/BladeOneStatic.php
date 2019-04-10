@@ -13,9 +13,9 @@ class BladeOneStatic
     /**
      * @var
      */
-    static $bladeOne;
-    public static $cachePath = "";
-    public static $viewPaths = [];
+    private static $bladeOne;
+    private static $cachePath = "";
+    private static $viewPaths = [];
 
     /**
      * Init BladeOne
@@ -41,7 +41,7 @@ class BladeOneStatic
      * @return bool|string
      * @throws \Exception
      */
-    public static function runBladeOne($params)
+    public static function runBladeOne($params): array
     {
         if (!class_exists('eftec\bladeone\BladeOne')) {
             return false;
@@ -50,7 +50,7 @@ class BladeOneStatic
         switch ($params['path']) {
 
             case "component":
-
+                var_dump('HEJ Component');
                 if (!self::$bladeOne) {
                     self::$bladeOne = self::init();
                 }
@@ -62,7 +62,7 @@ class BladeOneStatic
                 break;
 
             case "page":
-
+                var_dump('HEJ Layout');
                 self::$bladeOne = new Blade(
                     self::addViewPath(__DIR__ . '/../../../../views/'),
                     self::setCachePath(__DIR__ . '/../../../../cache/')
