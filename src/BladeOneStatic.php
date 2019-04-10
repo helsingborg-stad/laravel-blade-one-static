@@ -4,14 +4,25 @@ namespace LaravelBladeOneStatic\BladeOneStatic;
 
 Use eftec\bladeone\BladeOne as Blade;
 
+/**
+ * Interface BladeOneStatic
+ * @package LaravelBladeOneStatic\BladeOneStatic
+ */
+interface BladeOneStatic
+{
+    public static function init();
+    public static function runBladeOne($params);
+    public static function setCachePath($path, $prepend = true);
+    public static function addViewPath($path, $prepend = true);
 
+}
 
 
 /**
  * Class BladeOneStatic
  * @package LaravelBladeOneStatic
  */
-class BladeOneStatic implements BladeOneStaticInterface
+class BladeOneStatics implements BladeOneStatic
 {
     /**
      * @var
