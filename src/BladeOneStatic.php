@@ -12,7 +12,7 @@ interface BladeOneStatic
 {
     public static function init();
     public static function runBladeOne($params);
-    public static function setCachePath($path, $prepend = true);
+    public static function setCachePath($path);
     public static function addViewPath($path, $prepend = true);
 
 }
