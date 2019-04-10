@@ -4,11 +4,14 @@ namespace LaravelBladeOneStatic\BladeOneStatic;
 
 Use eftec\bladeone\BladeOne as Blade;
 
+
+
+
 /**
  * Class BladeOneStatic
  * @package LaravelBladeOneStatic
  */
-class BladeOneStatic
+class BladeOneStatic implements BladeOneStaticInterface
 {
     /**
      * @var
