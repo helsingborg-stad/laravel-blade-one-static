@@ -29,7 +29,8 @@ class BladeOneStatic
 
         self::$bladeOne = new Blade(
             (array)self::$viewPaths,
-            (string)self::$cachePath
+            (string)self::$cachePath,
+            Blade::MODE_AUTO
         );
 
         return self::$bladeOne;
@@ -50,7 +51,7 @@ class BladeOneStatic
         switch ($params['path']) {
 
             case "component":
-                var_dump('HEJ Component');
+
                 if (!self::$bladeOne) {
                     self::$bladeOne = self::init();
                 }
@@ -62,11 +63,10 @@ class BladeOneStatic
                 break;
 
             case "page":
-                var_dump('HEJ Layout');
+                
                 self::$bladeOne = new Blade(
                     self::addViewPath(__DIR__ . '/../../../../views/'),
                     self::setCachePath(__DIR__ . '/../../../../cache/')
-                //self::$bladeOne = self::init()
                 );
 
                 return self::$bladeOne->run($params['template'], $params['data']);
