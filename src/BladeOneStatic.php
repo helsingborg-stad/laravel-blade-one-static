@@ -11,9 +11,9 @@ Use eftec\bladeone\BladeOne as Blade;
 interface BladeOneStatic
 {
     public static function init();
-    public static function runBladeOne($params);
-    public static function setCachePath($path);
-    public static function addViewPath($path, $prepend = true);
+    public static function runBladeOne($params): array;
+    public static function setCachePath($path, $prepend = true): string;
+    public static function addViewPath($path, $prepend = true): array;
 
 }
 
@@ -93,7 +93,7 @@ class BladeOneStatics implements BladeOneStatic
      * @param $path
      * @return string The new cache path
      */
-    public static function setCachePath($path): string
+    public static function setCachePath($path, $prepend = true): string
     {
         return self::$cachePath = $path;
     }
